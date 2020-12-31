@@ -11,7 +11,7 @@
                 <div class="card-body">
                 
                     @if($activities->count() > 0)
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-12 my-3">
                             <form action="{{ route('store-report') }}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -52,7 +52,7 @@
                             
                         <x-alert />
                         
-                            <table class="table shadow-sm">
+                            <table class="table shadow-sm mt-3">
                                 <thead class="thead-dark">
                                   <tr>
                                     <th scope="col">{{ __('Created') }}</th>
