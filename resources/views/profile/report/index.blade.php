@@ -63,7 +63,10 @@
                                 @endforeach                        
                             </tbody>
                         </table>
-                        <p>{{ __('Total time in minutes: ') }}<small class="text-primary">{{ $activities->sum('time') }}</small></p>
+                            <p>{{ __('Total time in minutes: ') }}<small class="text-primary">{{ $activities->sum('time') }}</small></p>
+                            <div class="row justify-content-center mt-4">
+                                {{ $activities->links() }}
+                            </div>
                     </form>
                 </div>
             </div>
