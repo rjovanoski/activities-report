@@ -36,7 +36,7 @@ class ReportController extends Controller
         ->where('created_at', '>=', $dateFrom)
         ->where('created_at', '<=', $dateTo)
         ->orderBy('created_at')
-        ->get();
+        ->paginate(5);
             
         return view('profile.report.index', compact('activities', 'token'));
     }
@@ -50,7 +50,7 @@ class ReportController extends Controller
     {
         $userId = Auth::id();
 
-        $activities = Activity::where('user_id', $userId)->get()->sortBy('created_at');
+        $activities = Activity::where('user_id', $userId)->orderBy('created_at')->paginate(5);
 
         return view('profile.report.create', compact('activities'));
     }
@@ -107,7 +107,7 @@ class ReportController extends Controller
                     
                     Mail::to($email)->send(new ReportMail($token));
             
-                    return redirect()->back()->with('message', 'Report Sent')->withInput(); 
+                    return redirect()->back()->with('message', 'Report Sent');
                 }                              
                 
             }else {
@@ -124,11 +124,7 @@ class ReportController extends Controller
 
     public function print($token)
     {
-        $user = Report::where('token', $token)->pluck('user_id');
-
-        $dateFrom = Report::where('token', $token)->pluck('date_from');
-        
-        $dateTo = Report::where('token', $token)->pluck('date_to');            
+        $user = Report::where('token', $token)->pluck('user_id');          
                 
         $dateStart =  request()->date_from;
         $dateEnd = request()->date_to;  
