@@ -21,11 +21,25 @@ Auth::routes([
     'register' => false
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/activity', 'ActivityController@create')->name('create');
-Route::post('/home/activity/store', 'ActivityController@store')->name('store');
+Route::group(['prefix' => 'home'], function(){
 
-Route::get('/home/report/create', 'ReportController@create')->name('create-report');
-Route::post('/home/report/store', 'ReportController@store')->name('store-report');
-Route::get('/home/report/{token}', 'ReportController@index')->name('report');
-Route::post('home/report/print/{token}', 'ReportController@print')->name('print');
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::group(['prefix' => 'activity'], function(){
+
+        Route::get('/', 'ActivityController@create')->name('create');
+        Route::post('/store', 'ActivityController@store')->name('store');
+
+    });   
+    
+    Route::group(['prefix' => 'report'], function(){
+
+        Route::get('/create', 'ReportController@create')->name('create-report');
+        Route::post('/store', 'ReportController@store')->name('store-report');
+        Route::get('/{token}', 'ReportController@index')->name('report');
+        Route::post('/print/{token}', 'ReportController@print')->name('print');
+
+    });    
+
+});
+
