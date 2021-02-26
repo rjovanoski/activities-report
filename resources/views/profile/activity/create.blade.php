@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label for="time">{{ __('Time in minutes') }}</label>
-                            <input type="text" id="time" name="time" class="form-control @error('time') is-invalid @enderror" value="{{ old('time') }}">
+                            <input type="number" min="1" id="time" name="time" class="form-control @error('time') is-invalid @enderror" value="{{ old('time') }}">
                             
                             @error('time')
                                 <span class="invalid-feedback" role="alert">
